@@ -13,7 +13,7 @@
 [![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/docs/Web/JavaScript)
 [![EQLWiki](https://img.shields.io/badge/Designed%20for-EQLWiki-2F81F7?style=for-the-badge)](https://eqlwiki.com/)
 
-[EQLWiki](https://eqlwiki.com/) • [Report a bug](https://github.com/Wang-Thunder/EQLWiki-Enhancer/issues) • [Support on Ko-Fi](https://ko-fi.com/wangthunder)
+[EQLWiki](https://eqlwiki.com/) • [Report a bug](https://github.com/Wang-Thunder/EQLWiki-Enhancer/issues) • [License](LICENSE) • [Support on Ko-Fi](https://ko-fi.com/wangthunder)
 
 </div>
 
@@ -445,7 +445,6 @@ EQL-WE first queries EQLWiki using MediaWiki search endpoints, ranks and dedupli
     ├── icon16.png
     ├── icon48.png
     ├── icon128.png
-    ├── icon_master.png
     └── support_coins.png
 ```
 
@@ -568,6 +567,16 @@ For code changes, please try to preserve the project's goals:
 - avoid unnecessary permissions;
 - prefer lightweight vanilla JavaScript and CSS;
 - keep settings backward-compatible where practical.
+
+The license permits preparing modifications solely for submission to the official EQL-WE repository as contributions. It does **not** grant permission to publish or redistribute modified builds.
+
+---
+
+## License
+
+EQL-WE is **proprietary freeware** distributed under the [EQL-WE Free Use License v1.0](LICENSE). You may download, install, inspect, and use the unmodified extension free of charge for your own use. Modification, redistribution, rehosting, repackaging, sale, sublicensing, and derivative works are not permitted except for changes prepared solely for contribution back to the official project.
+
+Third-party names, trademarks, game assets, and EQLWiki content remain the property of their respective owners and are not licensed by EQL-WE.
 
 ---
 
