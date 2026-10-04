@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "name": "EQLWiki Search Enhancer",
+  "version": "1.0",
+  "description": "Adds a configurable fixed EQLWiki header and quick-access EQLWiki search tools.",
+  "permissions": [
+    "storage",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "*://www.eqlwiki.com/*",
+    "*://eqlwiki.com/*"
+  ],
+  "action": {
+    "default_title": "EQLWiki Search Enhancer",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.eqlwiki.com/*",
+        "*://eqlwiki.com/*"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "open-eqlwe-popup": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
+      },
+      "description": "Open the EQL-WE popup"
+    }
+  }
+}

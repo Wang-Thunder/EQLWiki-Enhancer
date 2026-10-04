@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EQLWiki Search Enhancer</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="popup-shell">
+    <div class="popup-scroll">
+      <div class="title-row compact">
+        <img src="icons/icon48.png" alt="" width="32" height="32">
+        <div>
+          <h1>EQLWiki Enhancer</h1>
+          <p>Search and page tools</p>
+        </div>
+      </div>
+
+      <form id="popup-search-form" class="search-block compact-block">
+        <label for="popup-search">Search EQLWiki</label>
+        <div class="search-row">
+          <div class="popup-search-input-wrap">
+            <input id="popup-search" type="search" placeholder="Item, NPC, spell..." autocomplete="off" required>
+            <div id="popup-suggestions" class="popup-suggestions" hidden></div>
+          </div>
+          <button type="submit">Search</button>
+        </div>
+      </form>
+
+      <section class="quick-grid">
+        <label class="quick-toggle"><span>Freeze header</span><input id="freezeHeader" type="checkbox"></label>
+        <label class="quick-toggle"><span>Side search</span><input id="sideSearch" type="checkbox"></label>
+        <label class="quick-toggle"><span>Corner search</span><input id="cornerSearch" type="checkbox"></label>
+        <label class="quick-toggle"><span>Autocomplete</span><input id="autocompleteEnabled" type="checkbox"></label>
+        <label class="quick-toggle"><span>Center search</span><input id="centerSearch" type="checkbox"></label>
+        <label class="quick-toggle"><span>Hide EQL-WE elements</span><input id="hidePageSearchUI" type="checkbox"></label>
+      </section>
+
+      <details class="settings-group">
+        <summary>Search behavior</summary>
+        <label class="setting-row select-row">
+          <span>Open results</span>
+          <select id="searchOpenMode">
+            <option value="new">New tab</option>
+            <option value="current">Current tab</option>
+          </select>
+        </label>
+        <label class="setting-row input-row">
+          <span>Center search box shortcut</span>
+          <input id="centerSearchShortcut" class="shortcut-input" type="text" placeholder="Press shortcut" data-shortcut="true" readonly>
+        </label>
+      </details>
+
+      <details class="settings-group">
+        <summary>Side search options</summary>
+        <label class="setting-row select-row">
+          <span>Position</span>
+          <select id="sideSearchPosition">
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+            <option value="bottom">Bottom</option>
+          </select>
+        </label>
+        <label class="setting-row input-row">
+          <span>Hotkey</span>
+          <input id="sideSearchHotkey" class="shortcut-input" type="text" placeholder="Optional" data-shortcut="true" readonly>
+        </label>
+        <label class="setting-row">
+          <span>Double-press key</span>
+          <input id="sideDoublePressEnabled" type="checkbox">
+        </label>
+        <label class="setting-row input-row">
+          <span>Double-press key</span>
+          <input id="sideDoublePressKey" class="shortcut-input" type="text" placeholder="Shift, Tab, `..." data-single-key="true" readonly>
+        </label>
+        <label class="setting-row range-row"><span>Offset</span><div class="range-wrap"><input id="sideSearchOffset" type="range" min="10" max="90" step="1"><output id="sideSearchOffsetOutput"></output></div></label>
+        <label class="setting-row range-row"><span>Width</span><div class="range-wrap"><input id="sideSearchWidth" type="range" min="150" max="420" step="10"><output id="sideSearchWidthOutput"></output></div></label>
+        <label class="setting-row range-row"><span>Opacity</span><div class="range-wrap"><input id="sideSearchOpacity" type="range" min="20" max="100" step="5"><output id="sideSearchOpacityOutput"></output></div></label>
+        <p class="helper-text">Double-press works on EQLWiki pages. Tab can be assigned, but Shift is safer for normal keyboard navigation.</p>
+      </details>
+
+      <details class="settings-group">
+        <summary>Corner search options</summary>
+        <label class="setting-row select-row"><span>Default corner</span><select id="cornerPosition"><option value="left">Bottom left</option><option value="right">Bottom right</option></select></label>
+        <label class="setting-row"><span>Unlock for dragging</span><input id="cornerUnlocked" type="checkbox"></label>
+        <label class="setting-row range-row"><span>Width</span><div class="range-wrap"><input id="cornerWidth" type="range" min="150" max="420" step="10"><output id="cornerWidthOutput"></output></div></label>
+        <label class="setting-row range-row"><span>Opacity</span><div class="range-wrap"><input id="cornerOpacity" type="range" min="20" max="100" step="5"><output id="cornerOpacityOutput"></output></div></label>
+        <div class="button-row"><button id="resetCornerPosition" class="secondary-button" type="button">Reset position</button></div>
+        <p class="helper-text">When unlocked, drag the small handle. Double-click the handle to reset.</p>
+      </details>
+
+      <details class="settings-group">
+        <summary>Utilities</summary>
+        <div class="button-grid">
+          <button id="resetAll" class="secondary-button" type="button">Reset all settings</button>
+          <button id="exportSettings" class="secondary-button" type="button">Export settings</button>
+          <button id="importSettings" class="secondary-button" type="button">Import settings</button>
+          <input id="importSettingsFile" type="file" accept="application/json,.json" hidden>
+        </div>
+      </details>
+
+      <div id="status" role="status" aria-live="polite"></div>
+    </div>
+
+    <footer id="support-card" class="support-card">
+      <div class="support-main">
+        <img class="support-coins" src="icons/support_coins.png" alt="EverQuest platinum, gold, silver and copper coins with a pixel heart">
+        <div class="support-copy">
+          <strong>Support EQL-WE</strong>
+          <p>Has EQL-WE been helpful? If so, please consider supporting the project on Ko-Fi. Your donations allow me to continue developing, improving, and sharing tools just like this. Any amount helps and is greatly appreciated!</p>
+        </div>
+      </div>
+      <a id="support-link" class="support-link" href="https://ko-fi.com/wangthunder" target="_blank" rel="noreferrer">Support on Ko-Fi</a>
+    </footer>
+
+    <footer id="support-thanks" class="support-thanks" hidden>Thanks for supporting EQL-WE.</footer>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

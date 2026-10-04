@@ -1,0 +1,38 @@
+/* EQLWiki Search Enhancer */
+.eql-enhancer-sticky { position: fixed !important; top: 0 !important; left: var(--eql-sticky-left, 0px) !important; width: var(--eql-sticky-width, 100vw) !important; z-index: 2147483000 !important; margin-top: 0 !important; box-sizing: border-box !important; background: var(--background-color-base, #101418) !important; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.55) !important; }
+#eql-enhancer-sticky-placeholder { display: block !important; box-sizing: border-box !important; flex: 0 0 auto !important; }
+.eql-enhancer-search-form { position: relative; }
+.eql-enhancer-search-form input[type="text"] { box-sizing: border-box; border: 1px solid #566d83; background: #0d1117; color: #f4f8fc; outline: none; border-radius: 5px; }
+.eql-enhancer-search-form input[type="text"]:focus { border-color: #6cb6ff; box-shadow: 0 0 0 2px rgba(108, 182, 255, 0.2); }
+.eql-enhancer-suggestions { position: absolute; left: 0; right: 0; top: calc(100% + 4px); background: rgba(14, 18, 24, 0.98); border: 1px solid #43586d; border-radius: 8px; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.5); overflow: hidden; z-index: 2147483005; max-height: 260px; overflow-y: auto; }
+.eql-enhancer-suggestion-item { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 10px; background: transparent; border: 0; color: #eef6fc; cursor: pointer; font: inherit; }
+.eql-enhancer-suggestion-item:hover, .eql-enhancer-suggestion-item:focus, .eql-enhancer-suggestion-item.active { background: rgba(74,110,145,.35); outline: none; }
+.eql-suggestion-thumb { width: 36px; height: 36px; border-radius: 5px; object-fit: cover; flex: 0 0 auto; background: #0a0f14; border: 1px solid #203141; }
+.eql-suggestion-thumb-placeholder { display: inline-flex; align-items: center; justify-content: center; color: #8ca6ba; font-size: 9px; font-weight: 700; }
+.eql-suggestion-label { display: block; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.eql-enhancer-suggestions.eql-suggestions-above { top: auto; bottom: calc(100% + 4px); }
+#eql-left-search-container { position: fixed; z-index: 2147483001; display: flex; align-items: stretch; transition: transform 160ms ease, opacity 160ms ease; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; opacity: var(--eql-side-opacity, 0.95); }
+#eql-left-search-container[data-position="left"] { left: 0; top: var(--eql-side-offset, 50%); transform: translate(calc(-100% + 32px), -50%); flex-direction: row; }
+#eql-left-search-container[data-position="left"].expanded:not(.force-collapsed), #eql-left-search-container[data-position="left"]:hover:not(.force-collapsed), #eql-left-search-container[data-position="left"]:focus-within:not(.force-collapsed) { transform: translate(0, -50%); }
+#eql-left-search-container[data-position="right"] { right: 0; top: var(--eql-side-offset, 50%); transform: translate(calc(100% - 32px), -50%); flex-direction: row-reverse; }
+#eql-left-search-container[data-position="right"].expanded:not(.force-collapsed), #eql-left-search-container[data-position="right"]:hover:not(.force-collapsed), #eql-left-search-container[data-position="right"]:focus-within:not(.force-collapsed) { transform: translate(0, -50%); }
+#eql-left-search-container[data-position="bottom"] { left: var(--eql-side-offset, 50%); bottom: 0; transform: translate(-50%, calc(100% - 32px)); flex-direction: column-reverse; }
+#eql-left-search-container[data-position="bottom"].expanded:not(.force-collapsed), #eql-left-search-container[data-position="bottom"]:hover:not(.force-collapsed), #eql-left-search-container[data-position="bottom"]:focus-within:not(.force-collapsed) { transform: translate(-50%, 0); }
+#eql-left-search-toggle { width: 32px; min-width: 32px; height: 44px; align-self: center; padding: 0; background: rgba(20, 25, 32, 0.94); color: #d9ecff; border: 1px solid #4a6279; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; line-height: 1; }
+#eql-left-search-container[data-position="left"] #eql-left-search-toggle { border-left: 0; border-radius: 0 7px 7px 0; }
+#eql-left-search-container[data-position="right"] #eql-left-search-toggle { border-right: 0; border-radius: 7px 0 0 7px; }
+#eql-left-search-container[data-position="bottom"] #eql-left-search-toggle { width: 56px; height: 32px; border-top: 0; border-radius: 0 0 7px 7px; }
+#eql-left-search-form { background: rgba(20, 25, 32, 0.96); padding: 8px; border: 1px solid #4a6279; box-shadow: 2px 3px 9px rgba(0, 0, 0, 0.45); }
+#eql-left-search-container[data-position="left"] #eql-left-search-form { border-left: 0; }
+#eql-left-search-container[data-position="right"] #eql-left-search-form { border-right: 0; }
+#eql-left-search-container[data-position="bottom"] #eql-left-search-form { border-bottom: 0; }
+#eql-left-search-form input[type="text"] { width: var(--eql-side-width, 190px); padding: 7px 9px; font-size: 14px; }
+#eql-corner-search-container { position: fixed; z-index: 2147483001; opacity: var(--eql-corner-opacity, 0.5); transition: opacity 150ms ease, transform 150ms ease; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; display: flex; align-items: center; gap: 6px; }
+#eql-corner-search-container:hover, #eql-corner-search-container:focus-within { opacity: 1; transform: translateY(-1px); }
+#eql-corner-search-form input[type="text"] { width: var(--eql-corner-width, 190px); padding: 8px 10px; font-size: 13px; background: rgba(8, 12, 18, 0.94); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45); }
+.eql-corner-drag-handle { display: none; width: 24px; height: 32px; border: 1px solid #43586d; border-radius: 6px; background: rgba(8, 12, 18, 0.92); color: #d1e6f8; cursor: grab; }
+#eql-corner-search-container.unlocked .eql-corner-drag-handle { display: inline-flex; align-items: center; justify-content: center; }
+#eql-corner-search-container.unlocked .eql-corner-drag-handle:active { cursor: grabbing; }
+#eql-center-search-container { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2147483002; background: rgba(18, 22, 28, 0.97); padding: 20px; border-radius: 10px; display: none; box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75); border: 1px solid #52667a; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+#eql-center-search-container.visible { display: block; }
+#eql-center-search-form input[type="text"] { width: min(430px, calc(100vw - 80px)); padding: 13px 15px; font-size: 18px; }
