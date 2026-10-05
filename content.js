@@ -89,9 +89,38 @@
   }
 
   function findBestHeader() {
-    const selectors = ['.vector-header-container', 'header.vector-header', '.vector-header', '.mw-header', '#mw-head', '#mw-navigation', 'header', '#header', '.header'];
+    // Prefer MediaWiki/Vector's known header containers directly. These checks must
+    // not depend on the element currently being inside the viewport: deep links
+    // (for example, URLs with a #section fragment) may scroll the page before this
+    // content script runs, putting the real header above the viewport.
+    const preferredSelectors = [
+      '.vector-header-container',
+      'header.vector-header',
+      '.vector-header',
+      '.mw-header',
+      '#mw-head',
+      '#mw-navigation'
+    ];
+
+    const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    const usable = el => {
+      if (!isVisible(el)) return false;
+      const rect = el.getBoundingClientRect();
+      return rect.height >= 24 && rect.height <= 260 && rect.width >= Math.min(500, viewportWidth * 0.55);
+    };
+
+    for (const selector of preferredSelectors) {
+      const match = [...document.querySelectorAll(selector)].find(usable);
+      if (match) return match;
+    }
+
+    // Fallback for alternate skins/layouts. Score candidates by their document
+    // position rather than viewport position so restored scroll positions and
+    // fragment navigation cannot disqualify the real page header.
     const candidates = [];
-    selectors.forEach(selector => document.querySelectorAll(selector).forEach(el => candidates.push(el)));
+    ['header', '#header', '.header'].forEach(selector =>
+      document.querySelectorAll(selector).forEach(el => candidates.push(el))
+    );
 
     const searchInput = document.querySelector('input[name="search"], input[type="search"], #searchInput, .cdx-text-input__input');
     if (searchInput) {
@@ -99,22 +128,20 @@
       for (let depth = 0; el && el !== document.body && depth < 10; depth += 1, el = el.parentElement) candidates.push(el);
     }
 
-    const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     let best = null;
     let bestScore = -Infinity;
 
     [...new Set(candidates)].forEach(el => {
-      if (!isVisible(el)) return;
+      if (!usable(el)) return;
       const rect = el.getBoundingClientRect();
-      if (rect.height < 24 || rect.height > 260) return;
-      if (rect.width < Math.min(500, viewportWidth * 0.55)) return;
-      if (rect.top > 260 || rect.bottom < 0) return;
+      const documentTop = rect.top + window.scrollY;
+      if (documentTop > 600) return;
 
       let score = 0;
-      score += Math.max(0, 220 - Math.abs(rect.top)) * 0.2;
+      score += Math.max(0, 220 - Math.abs(documentTop)) * 0.2;
       score += Math.min(60, (rect.width / viewportWidth) * 60);
       score -= Math.max(0, rect.height - 110) * 0.2;
-      if (el.matches('header, .vector-header-container, .vector-header, .mw-header, #mw-head, #mw-navigation')) score += 35;
+      if (el.matches('header')) score += 35;
       if (searchInput && el.contains(searchInput)) score += 45;
       if (el.querySelector('nav, [role="navigation"], form[role="search"], input[name="search"], input[type="search"]')) score += 15;
       if (/head|nav|header/i.test(`${el.id} ${el.className}`)) score += 10;
