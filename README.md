@@ -574,7 +574,7 @@ The license permits preparing modifications solely for submission to the officia
 
 ## License
 
-EQL-WE is **proprietary freeware** distributed under the [EQL-WE Free Use License v1.0](LICENSE). You may download, install, inspect, and use the unmodified extension free of charge for your own use. Modification, redistribution, rehosting, repackaging, sale, sublicensing, and derivative works are not permitted except for changes prepared solely for contribution back to the official project.
+EQL-WE is **proprietary freeware** distributed under the [EQL-WE Free Use License v1.0](LICENSE). You may download, install, inspect, and use the extension free of charge for your own use. Redistribution, rehosting, repackaging, sale, sublicensing, and derivative works are not permitted without prior authorization, except for changes prepared solely for contribution back to the official project.
 
 Third-party names, trademarks, game assets, and EQLWiki content remain the property of their respective owners and are not licensed by EQL-WE.
 
